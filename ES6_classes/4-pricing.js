@@ -1,4 +1,4 @@
-//eslint-disable-next-line
+// eslint-disable-next-line
 import Currency from './3-currency.js';
 
 export default class Pricing {
@@ -12,7 +12,7 @@ export default class Pricing {
   }
 
   set amount(newAmount) {
-    if (typeof amount !== 'number' || Number.isNaN(amount)) {
+    if (typeof newAmount !== 'number' || Number.isNaN(newAmount)) {
       throw new TypeError('amount must be a number');
     }
     this._amount = newAmount;
@@ -23,7 +23,8 @@ export default class Pricing {
   }
 
   set currency(newCurrency) {
-    if (!currency instanceof Currency) {
+    // eslint-disable-next-line
+    if (!newCurrency instanceof Currency) {
       throw new TypeError('currency is not an instance of Currency class');
     }
     this._currency = newCurrency;
