@@ -12,8 +12,10 @@ Example:
 7.0
 """
 
+from typing import List
 
-def sum_list(input_list: list) -> float:
+
+def sum_list(input_list: List[float]) -> float:
     """
     Calculate the sum of elements in a list.
 
