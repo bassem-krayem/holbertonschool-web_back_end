@@ -1,6 +1,4 @@
 #!/usr/bin/env python3
-from typing import List, Union
-
 """
 This module provides a function to calculate the sum of a list containing
 both integers and floats.
@@ -14,6 +12,8 @@ Example:
 >>> sum_mixed_list([1, 2.5, 3, 4.5])
 11.0
 """
+
+from typing import List, Union
 
 
 def sum_mixed_list(mxd_lst: List[Union[int, float]]) -> float:
