@@ -7,7 +7,7 @@ time for all tasks and then dividing by the number of tasks.
 
 Functions:
     measure_time(n: int, max_delay: int) -> float:
-        Measures and returns the average execution time for `n` 
+        Measures and returns the average execution time for `n`
         asynchronous tasks with a specified maximum delay.
 """
 
@@ -33,6 +33,6 @@ def measure_time(n: int, max_delay: int) -> float:
     start_time = time.time()
     asyncio.run(wait_n(n, max_delay))
     end_time = time.time()
-    
+
     total_execution_time = end_time - start_time
     return total_execution_time / n
