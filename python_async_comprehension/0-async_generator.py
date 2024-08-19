@@ -11,9 +11,10 @@ Functions:
 
 import random
 import asyncio
+from typing import AsyncGenerator
 
 
-async def async_generator():
+async def async_generator() -> AsyncGenerator[float, None]:
     """
     An asynchronous generator that yields a random float
     between 0 and 10 every second. This function generates
