@@ -9,12 +9,12 @@ Functions:
 """
 
 import _asyncio
-from typing import List
+from typing import Generator
 
 async_generator = __import__('0-async_generator').async_generator
 
 
-async def async_comprehension() -> List:
+async def async_comprehension() -> Generator:
     """
     Collects numbers from the async_generator using an async
     comprehension and returns them as a list.
