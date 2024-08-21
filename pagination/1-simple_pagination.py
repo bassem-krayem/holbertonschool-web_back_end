@@ -1,4 +1,30 @@
 #!/usr/bin/env python3
+"""
+This module defines a `Server` class used to paginate a dataset of popular 
+baby names. The dataset is loaded from a CSV file and cached for efficient 
+pagination.
+
+Module Contents:
+- `Server` class: Handles the loading and pagination of the dataset.
+  - Attributes:
+    - `DATA_FILE` (str): The path to the CSV file containing the dataset.
+    - `__dataset` (List[List]): A cached dataset read from the CSV file.
+  - Methods:
+    - `__init__()`: Initializes a new `Server` instance with an empty dataset.
+    - `dataset() -> List[List]`: Loads the dataset from the CSV file if not 
+      already cached and returns it, excluding the header row.
+    - `get_page(page: int = 1, page_size: int = 10) -> List[List]`: Retrieves 
+      a list of rows for a specified page and page size. It raises an 
+      `AssertionError` if the page or page size are not positive integers.
+- `index_range(page: int, page_size: int) -> Tuple[int, int]`: A helper 
+  function that calculates the start and end indices for a specific page 
+  based on the given page number and page size. 
+
+Usage Example:
+    server = Server()
+    page_data = server.get_page(page=2, page_size=5)
+    print(page_data)  # Output will be the rows for page 2 with 5 items per page
+"""
 
 import csv
 from typing import List, Tuple
