@@ -1,3 +1,2 @@
 // a script to list dbs
-
-show dbs
+show dbs;
