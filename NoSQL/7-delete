@@ -1,0 +1,2 @@
+// a script to delete alldocument from collection
+db.school.deleteMany({ name: 'Holberton school' });
