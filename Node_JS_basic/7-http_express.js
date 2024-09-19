@@ -1,9 +1,8 @@
 const express = require('express');
-
 const fs = require('fs').promises;
 
 const app = express();
-
+const port = 1245;
 const database = process.argv[2];
 
 async function requestListener(req, res) {
@@ -19,12 +18,14 @@ async function requestListener(req, res) {
       res.write('This is the list of our students\n'); // Add a newline for separation
       try {
         const data = await fs.readFile(database, 'utf8');
-        const rows = data.split('\n').slice(1);
+        const rows = data.trim().split('\n').slice(1); // Trim and split data
 
         const studentsCS = [];
         const studentsSWE = [];
 
         for (const row of rows) {
+          if (row.trim() === '') continue; // Skip empty lines
+
           const columns = row.split(',');
 
           if (columns[3] === 'CS') {
@@ -41,7 +42,7 @@ async function requestListener(req, res) {
         res.write(`Number of students in SWE: ${studentsSWE.length}. List: ${studentsSWE.join(', ')}\n`);
         res.end(); // End the response
       } catch (err) {
-        res.end('Cannot load the database');
+        res.status(500).end('Cannot load the database');
       }
       break;
     default:
@@ -57,5 +58,8 @@ app.get('/', (req, res) => {
 
 app.get('/students', requestListener);
 
-app.listen(1245);
+app.listen(port, () => {
+  console.log(`Server is listening on port ${port}`);
+});
+
 module.exports = app;
