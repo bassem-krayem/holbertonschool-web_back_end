@@ -41,10 +41,6 @@ async function countStudents(filePath) {
 
 // Get the CSV file path from command line arguments
 const csvFilePath = process.argv[2];
-if (!csvFilePath) {
-  console.error('Please provide the path to the CSV file as an argument.');
-  process.exit(1);
-}
 
 // Create an HTTP server
 const app = http.createServer(async (req, res) => {
