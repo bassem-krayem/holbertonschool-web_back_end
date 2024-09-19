@@ -24,6 +24,7 @@ async function requestListener(req, res) {
         const studentsSWE = [];
 
         for (const row of rows) {
+          // eslint-disable-next-line
           if (row.trim() === '') continue; // Skip empty lines
 
           const columns = row.split(',');
