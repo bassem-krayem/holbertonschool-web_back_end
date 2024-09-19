@@ -1,5 +1,3 @@
-// 8.4 Link the routes
-
 import express from 'express';
 import AppController from '../controllers/AppController';
 import StudentsController from '../controllers/StudentsController';
