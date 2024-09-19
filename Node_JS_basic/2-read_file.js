@@ -28,11 +28,11 @@ function countStudents(path) {
           console.log(`Number of students in ${field}: ${students.length}. List: ${students.join(', ')}`);
         }
       }
-    } else {
-      throw new Error('Cannot load the database');
     }
-  } catch (error) {
-    console.error(error.message);
+  } catch (er) {
+    throw new Error('Cannot load the database');
+    // eslint-disable-next-line
+    console.error(er);
   }
 }
 
