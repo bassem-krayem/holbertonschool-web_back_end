@@ -11,6 +11,6 @@ router.get('/', AppController.getHomepage);
 router.get('/students', StudentsController.getAllStudents);
 
 // route '/students/:major' (corrected)
-router.get('/students/:major', StudentsController.getAllStudentsbyMajor);
+router.get('/students/:major', StudentsController.getAllStudentsByMajor);
 
 module.exports = router;
