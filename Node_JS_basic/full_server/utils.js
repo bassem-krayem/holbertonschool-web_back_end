@@ -1,31 +1,34 @@
-const fs = require('fs').promises;
+const fs = require('fs');
 
-module.exports = async function readDatabase(path) {
-  try {
-    const data = await fs.readFile(path, 'utf-8');
-    const rows = data.split('\n').slice(1);
-
-    const studentsCS = [];
-    const studentsSWE = [];
-
-    for (const row of rows) {
-      const data = row.split(',');
-
-      // if field is CS add to CS array
-      if (data[3] === 'CS') {
-        studentsCS.push(data[0]);
+function readDatabase(path) {
+  return new Promise((resolve, reject) => {
+    fs.readFile(path, 'utf8', (err, data) => {
+      if (err) {
+        reject(Error(err));
+        return;
       }
-      // if field is SWE add to SWE array
-      if (data[3] === 'SWE') {
-        studentsSWE.push(data[0]);
-      }
-    }
+      const content = data.toString().split('\n');
 
-    return {
-      CS: studentsCS,
-      SWE: studentsSWE,
-    };
-  } catch (err) {
-    throw new Error('Cannot load the database');
-  }
-};
+      let students = content.filter((item) => item);
+
+      students = students.map((item) => item.split(','));
+
+      const fields = {};
+      for (const i in students) {
+        if (i !== 0) {
+          if (!fields[students[i][3]]) fields[students[i][3]] = [];
+
+          fields[students[i][3]].push(students[i][0]);
+        }
+      }
+
+      delete fields.field;
+
+      resolve(fields);
+
+      //   return fields;
+    });
+  });
+}
+
+export default readDatabase;
