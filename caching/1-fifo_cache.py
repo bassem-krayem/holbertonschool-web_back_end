@@ -47,7 +47,7 @@ class FIFOCache(BaseCaching):
                 key: of the dict
                 item: value of the key
         """
-        if key or item is not None:
+        if key is not None and item is not None:
             valuecache = self.get(key)
             if valuecache is None:
                 if len(self.cache_data) >= BaseCaching.MAX_ITEMS:
