@@ -1,48 +1,27 @@
 #!/usr/bin/env python3
 """
-    BaseCache module
+BasicCache module
 """
 
 from base_caching import BaseCaching
 
 
 class BasicCache(BaseCaching):
-    """ BasicCache define a intro to use cache
-
-      To use:
-      >>> my_cache = BasicCache()
-      >>> my_cache.print_cache()
-      Current cache:
-
-      >>> my_cache.put("A", "Hello")
-      >>> my_cache.print_cache()
-      A: Hello
-
-      >>> print(my_cache.get("A"))
-      Hello
-    """
+    """BasicCache defines a simple caching system with no limit."""
 
     def put(self, key, item):
-        """
-            modify cache data
+        """Add an item in the cache.
 
-            Args:
-                key: of the dict
-                item: value of the key
+        If either key or item is None, do nothing.
         """
-        if key or item is not None:
+        if key is not None and item is not None:
             self.cache_data[key] = item
 
     def get(self, key):
+        """Return the value linked to key.
+
+        If key is None or doesn’t exist, return None.
         """
-            modify cache data
-
-            Args:
-                key: of the dict
-
-            Return:
-                value of the key
-        """
-
-        valuecache = self.cache_data.get(key)
-        return valuecache
+        if key is None:
+            return None
+        return self.cache_data.get(key)
