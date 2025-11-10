@@ -30,7 +30,7 @@ class FIFOCache(BaseCaching):
                     and key not in self.cache_data):
                 key_to_delete = list(self.cache_data.keys())[0]
                 del self.cache_data[key_to_delete]
-                print(f"DISCARD: {key_to_delete}\n")
+                print(f"DISCARD: {key_to_delete}")
             self.cache_data[key] = item
 
     def get(self, key):
