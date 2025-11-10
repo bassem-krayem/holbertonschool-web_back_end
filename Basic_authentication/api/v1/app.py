@@ -45,7 +45,7 @@ def before_request_func():
     """
     Function to run before each request
     """
-    if auth is not  None and auth.require_auth(
+    if auth is not None and auth.require_auth(
             request.path,
             ['/api/v1/status/',
              '/api/v1/unauthorized/',
