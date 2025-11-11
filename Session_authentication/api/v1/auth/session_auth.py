@@ -57,3 +57,22 @@ class SessionAuth(Auth):
             return None
         from models.user import User
         return User.get(user_id)
+
+    def destroy_session(self, request=None):
+        """
+        Destroy the session for a user
+        Args:
+            request: The Flask request object
+        Returns:
+            bool: True if the session was destroyed, False otherwise
+        """
+        if request is None:
+            return False
+        session_id = self.session_cookie(request)
+        if session_id is None:
+            return 'False - you must use self.session_cookie(request)'
+        user_id = self.user_id_for_session_id(session_id)
+        if user_id is None:
+            return 'False - you must use self.user_id_for_session_id(...)'
+        del self.user_id_by_session_id[session_id]
+        return True
