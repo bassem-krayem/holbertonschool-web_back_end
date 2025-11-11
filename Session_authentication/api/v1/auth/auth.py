@@ -6,6 +6,7 @@ Module for authentication routes
 from flask import request
 from typing import List, TypeVar
 import re
+import os
 
 
 class Auth:
@@ -59,4 +60,17 @@ class Auth:
         Returns:
             TypeVar('User'): The current user or None if not authenticated.
         """
+        return None
+
+    def session_cookie(self, request=None):
+        """
+        Retrieve the session cookie from the request.
+        Args:
+            request: The Flask request object.
+        Returns:
+            The value of the session cookie or None if not present.
+        """
+        if request is not None:
+            cooky_name = os.getenv("SESSION_NAME")
+            return request.cookies.get(cooky_name)
         return None
