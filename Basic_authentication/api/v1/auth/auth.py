@@ -5,6 +5,7 @@ Module for authentication routes
 
 from flask import request
 from typing import List, TypeVar
+import re
 
 
 class Auth:
@@ -26,7 +27,13 @@ class Auth:
         if path is not None and excluded_paths is not None:
             if path[-1] != '/':
                 path += '/'
-            if path in excluded_paths:
+            if (
+                len(excluded_paths) == 1 and
+                excluded_paths[0][-1] == '*' and
+                re.match(excluded_paths[0][:-1], path)
+            ):
+                return False
+            elif path in excluded_paths:
                 return False
         return True
 
