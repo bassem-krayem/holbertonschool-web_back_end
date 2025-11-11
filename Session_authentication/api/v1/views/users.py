@@ -27,7 +27,8 @@ def view_one_user(user_id: str = None) -> str:
     """
     if (
         user_id is None and
-        request.current_user is None
+        request.current_user is None and
+        user_id != 'me'
     ):
         abort(404)
     if user_id == 'me':
