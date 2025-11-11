@@ -56,5 +56,4 @@ class SessionAuth(Auth):
         if user_id is None:
             return None
         from models.user import User
-        
         return User.get(user_id)
