@@ -81,16 +81,13 @@ def update_password():
     """
     Update password route
     """
-    email = request.form.get('email')
-    reset_token = request.form.get('reset_token')
-    new_password = request.form.get('new_password')
-    if not reset_token or not new_password:
-        abort(403)
-
     try:
+        email = request.form.get('email')
+        reset_token = request.form.get('reset_token')
+        new_password = request.form.get('new_password')
         AUTH.update_password(reset_token, new_password)
         return jsonify({"email": email, "message": "Password updated"}), 200
-    except ValueError:
+    except Exception:
         abort(403)
 
 
