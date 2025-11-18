@@ -10,12 +10,16 @@ app = Flask(__name__)
 @app.route('/')
 def home():
     """
-    Home route"""
+    Home route
+    """
     return jsonify({"message": "Bienvenue"})
 
 
 @app.route('/users', methods=['POST'])
 def users():
+    """
+    Users route
+    """
     email = request.form.get('email')
     password = request.form.get('password')
     try:
