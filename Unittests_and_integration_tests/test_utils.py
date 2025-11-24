@@ -18,6 +18,7 @@ class TestAccessNestedMap(unittest.TestCase):
     """
     TestAccessNestedMap class to test access_nested_map function
     """
+    pass
 
     @parameterized.expand([
         ({"a": 1}, ("a",), 1),
