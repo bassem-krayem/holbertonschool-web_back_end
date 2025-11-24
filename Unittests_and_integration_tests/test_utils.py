@@ -35,6 +35,3 @@ class TestAccessNestedMap(unittest.TestCase):
         Test access_nested_map function with different inputs
         """
         self.assertEqual(access_nested_map(nested_map, path), expected)
-
-
-unittest.main()
