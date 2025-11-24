@@ -119,3 +119,4 @@ webpack-stats.json
 
 # Node inspector logs
 node-inspect.log
+\n*.db\n
