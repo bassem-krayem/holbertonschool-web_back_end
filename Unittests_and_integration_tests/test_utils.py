@@ -5,7 +5,7 @@ a module for testing utils functions
 import unittest
 from unittest.mock import patch
 import utils
-from utils import access_nested_map, get_json
+from utils import access_nested_map, get_json, memoize
 from parameterized import parameterized
 from typing import (
     Mapping,
