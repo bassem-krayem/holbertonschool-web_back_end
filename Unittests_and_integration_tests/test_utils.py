@@ -53,7 +53,7 @@ class TestAccessNestedMap(unittest.TestCase):
 class TestGetJson(unittest.TestCase):
     """
     TestGetJson class to test get_json function
-    """ 
+    """
 
     @parameterized.expand([
         ("http://example.com", {"payload": True}),
@@ -70,3 +70,27 @@ class TestGetJson(unittest.TestCase):
         mock_get.return_value.json.return_value = expected
         self.assertEqual(get_json(url), expected)
         mock_get.assert_called_once_with(url)
+
+
+class TestMemoize(unittest.TestCase):
+    """ Test Class to memoize """
+
+    def test_memoize(self):
+        """ Test memoize """
+        class TestClass:
+            """ Test Class """
+
+            def a_method(self):
+                """ A method """
+                return 42
+
+            @memoize
+            def a_property(self):
+                """ Decorator """
+                return self.a_method()
+
+        with patch.object(TestClass, 'a_method') as mock:
+            test_class = TestClass()
+            test_class.a_property()
+            test_class.a_property()
+            mock.assert_called_once()
