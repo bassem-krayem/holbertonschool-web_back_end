@@ -6,7 +6,7 @@ It uses Flask-Babel to support internationalization (i18n) and localization (l10
 _ is imported from flask_babel and is used to mark strings for translation.
 """
 from flask import Flask, render_template, request
-from flask_babel import Babel, _
+from flask_babel import Babel
 
 app = Flask(__name__)
 babel = Babel(app)
