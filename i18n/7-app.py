@@ -61,7 +61,6 @@ babel = Babel(app)
 app.config.from_object(Config)
 
 
-@babel.timezoneselector
 def get_timezone():
     """Select the best timezone for the request."""
 
