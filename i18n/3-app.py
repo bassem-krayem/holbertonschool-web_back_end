@@ -1,9 +1,8 @@
 #!/usr/bin/env python3
 """
 A simple Flask application.
-It uses Flask-Babel to support internationalization (i18n) and localization (l10n).
-
-_ is imported from flask_babel and is used to mark strings for translation.
+It uses Flask-Babel to support internationalization (i18n) and localization
+ (l10n).
 """
 from flask import Flask, render_template, request
 from flask_babel import Babel
