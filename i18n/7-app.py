@@ -96,7 +96,7 @@ babel.init_app(app, locale_selector=get_locale, timezone_selector=get_timezone)
 @app.route('/')
 def home():
     """Render the home page."""
-    return render_template('5-index.html')
+    return render_template('7-index.html')
 
 
 @app.before_request
