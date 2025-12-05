@@ -34,17 +34,30 @@ def call_history(method: Callable) -> Callable:
 
 
 def replay(method: Callable):
-    '''Display the history of calls of a particular function'''
-    redis_instance = method.__self__._redis
+    """Display the history of calls of a particular function."""
+    # Try to get the redis instance from the bound method (method.__self__),
+    # otherwise fall back to a new client.
+    redis_client = None
+    if hasattr(method, "__self__") and method.__self__ is not None:
+        # bound method: use the instance redis
+        redis_client = method.__self__._redis
+    else:
+        # fallback (unbound function) -- use default redis connection
+        redis_client = redis.Redis()
+
     key = method.__qualname__
+    inputs = redis_client.lrange(f"{key}:inputs", 0, -1)
+    outputs = redis_client.lrange(f"{key}:outputs", 0, -1)
 
-    inputs = redis_instance.lrange(f"{key}:inputs", 0, -1)
-    outputs = redis_instance.lrange(f"{key}:outputs", 0, -1)
-
-    print(f"{key} was called {len(inputs)} times:")
+    calls_number = len(inputs)
+    times_str = "time" if calls_number == 1 else "times"
+    print(f"{key} was called {calls_number} {times_str}:")
 
     for inp, out in zip(inputs, outputs):
-        print(f"{key}(*{inp.decode('utf-8')}) -> {out.decode('utf-8')}")
+        # decode bytes to string; keep the original tuple-format representation
+        inp_str = inp.decode("utf-8")
+        out_str = out.decode("utf-8")
+        print(f"{key}(*{inp_str}) -> {out_str}")
 
 
 class Cache():
