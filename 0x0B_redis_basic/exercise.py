@@ -33,31 +33,33 @@ def call_history(method: Callable) -> Callable:
     return wrapper
 
 
-def replay(method: Callable):
-    """Display the history of calls of a particular function."""
-    # Try to get the redis instance from the bound method (method.__self__),
-    # otherwise fall back to a new client.
-    redis_client = None
-    if hasattr(method, "__self__") and method.__self__ is not None:
-        # bound method: use the instance redis
-        redis_client = method.__self__._redis
-    else:
-        # fallback (unbound function) -- use default redis connection
-        redis_client = redis.Redis()
+def replay(func: Callable):
+    """ Replay function """
+    r = redis.Redis()
+    func_name = func.__qualname__
+    number_calls = r.get(func_name)
 
-    key = method.__qualname__
-    inputs = redis_client.lrange(f"{key}:inputs", 0, -1)
-    outputs = redis_client.lrange(f"{key}:outputs", 0, -1)
+    try:
+        number_calls = number_calls.decode('utf-8')
+    except Exception:
+        number_calls = 0
 
-    calls_number = len(inputs)
-    times_str = "time" if calls_number == 1 else "times"
-    print(f"{key} was called {calls_number} {times_str}:")
+    print(f'{func_name} was called {number_calls} times:')
 
-    for inp, out in zip(inputs, outputs):
-        # decode bytes to string; keep the original tuple-format representation
-        inp_str = inp.decode("utf-8")
-        out_str = out.decode("utf-8")
-        print(f"{key}(*{inp_str}) -> {out_str}")
+    ins = r.lrange(func_name + ":inputs", 0, -1)
+    outs = r.lrange(func_name + ":outputs", 0, -1)
+
+    for cin, cout in zip(ins, outs):
+        try:
+            cin = cin.decode('utf-8')
+        except Exception:
+            cin = ""
+        try:
+            cout = cout.decode('utf-8')
+        except Exception:
+            cout = ""
+
+        print(f'{func_name}(*{cin}) -> {cout}')
 
 
 class Cache():
