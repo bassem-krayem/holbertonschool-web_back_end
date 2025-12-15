@@ -42,11 +42,6 @@ describe('calculateNumber', () => {
     assert.strictEqual(calculateNumber(2.8, 3.1), 6); // 3 + 3 = 6
   });
 
-  // Test Case 9: Tests with negative numbers (Good practice for completeness)
-  it('should return 0 when a is -1.5 and b is 1.5', () => {
-    assert.strictEqual(calculateNumber(-1.5, 1.5), 0); // -1 + 2 = 1. Wait, Math.round(-1.5) is -1, Math.round(1.5) is 2. The result should be 1.
-  });
-
   // Corrected Test Case 9:
   it('should return 1 when a is -1.5 and b is 1.5', () => {
     assert.strictEqual(calculateNumber(-1.5, 1.5), 1); // Math.round(-1.5) = -1, Math.round(1.5) = 2. Sum is 1.
