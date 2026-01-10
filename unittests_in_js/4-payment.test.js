@@ -1,24 +1,26 @@
-const mocha = require('mocha');
-const { expect, assert } = require('chai');
 const sinon = require('sinon');
-
-const utils = require('./utils');
-const sendPaymentRequestToApi = require('./3-payment');
-const { spy } = require('sinon');
+const { expect } = require('chai');
+const sendPaymentRequestToApi = require('./4-payment');
+const Utils = require('./utils');
 
 describe('sendPaymentRequestToApi', () => {
-  it('should call calculateNumber', () => {
-    const stub = sinon.stub(utils, 'calculateNumber');
-    stub.returns(10);
+  it('stubs calculateNumber and logs the correct message', () => {
+    // Stub calculateNumber to always return 10
+    const stub = sinon.stub(Utils, 'calculateNumber').returns(10);
 
+    // Spy on console.log
     const spy = sinon.spy(console, 'log');
 
-    const apiRequestRes = sendPaymentRequestToApi(100, 20);
+    // Call the function
+    sendPaymentRequestToApi(100, 20);
 
-    expect(stub.calledOnceWithExactly('SUM', 100, 20)).to.equal(true);
-    expect(spy.calledOnceWithExactly('The total is: 10'));
-    expect(utils.calculateNumber('SUM', 100, 20)).to.equal(apiRequestRes);
+    // Assertions
+    expect(stub.calledOnce).to.be.true;
+    expect(stub.calledWith('SUM', 100, 20)).to.be.true;
+    expect(spy.calledOnce).to.be.true;
+    expect(spy.calledWith('The total is: 10')).to.be.true;
 
+    // Restore
     stub.restore();
     spy.restore();
   });
